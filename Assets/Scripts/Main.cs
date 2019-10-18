@@ -6,34 +6,25 @@ using Random=System.Random;
 public class Main : MonoBehaviour {
     
     GameObject sphere;
-    Vector3 targetPosition;
 
     void Start() {
-        Debug.Log("start");
+        print("start");
         sphere = GameObject.Find("Sphere");
-        Debug.Log(sphere.transform.position);
     }
 
     void Update() {
 
         if (Input.GetMouseButtonDown(0)) {
-
-            targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log(targetPosition);
-
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit)) {
                 if (hit.transform.name == "Sphere" ) {
-                    Debug.Log("My object is clicked by mouse");
-                    Debug.Log(Screen.width);
-                    Debug.Log(Screen.height);
+                    print("My object is clicked by mouse");
                     ChangePosition();
                 }
             }
         }
 
-        // Debug.Log(sphere.transform.position);
     }
 
     void ChangePosition() {
@@ -45,16 +36,8 @@ public class Main : MonoBehaviour {
         Random rnd = new Random();
         int random_width_pos = rnd.Next(- width_int, width_int);
         int random_height_pos = rnd.Next(- height_int, height_int);
-        // int random_width_pos = -10;
-        // int random_height_pos = 10;
-
-        // float ScreenWidthInch = Screen.width / Screen.dpi;
-        // float ScreenHeightInch = Screen.height / Screen.dpi;
-        // Debug.Log(ScreenWidthInch + " " + ScreenHeightInch);
-        Debug.Log(random_width_pos);
-        Debug.Log(random_height_pos);
-        sphere.transform.localPosition = new Vector3(random_width_pos, random_height_pos, 0);
-        // transform.position += new Vector3(1, 1, 0);
+        print("new X position: " + random_width_pos + ", new Y position: " + random_height_pos);
+        sphere.transform.position = new Vector3(random_width_pos, random_height_pos, 0);
     }
 
 }
