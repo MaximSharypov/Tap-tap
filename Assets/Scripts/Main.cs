@@ -3,8 +3,11 @@ using System;
 using Debug=UnityEngine.Debug;
 using Random=System.Random;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class Main : MonoBehaviour {
+
 public Text countdownText, Score, Record;
 
     float currentTime = 2f;     
@@ -14,6 +17,10 @@ public Text countdownText, Score, Record;
     bool firstTap = false, lose;
     public int score;
     public int record;
+    public GameObject ButDeadF;
+    public AudioClip DeadF;
+    public int Pos_X  = 750;
+    public int Pos_Y = 150;
     private int PlusOne = 1;
 
 
@@ -63,19 +70,13 @@ public Text countdownText, Score, Record;
         }
 
     }
-    void PlayerLose (){
+    void PlayerLose ()
+    {
         if (!lose_buttons.activeSelf)
-            lose_buttons.SetActive (true);            
-            int Pos_X  = (900);
-            int Pos_Y = (150);
+            lose_buttons.SetActive (true);                        
             int Pos_Z = (0);
-        lose_buttons.transform.position = new Vector3 (Pos_X, Pos_Y, Pos_Z);
-        if (Input.GetMouseButtonDown(0))
-        {
-            FindObjectOfType<GameManager>().EndGame();
-        }
-        
-
+            lose_buttons.transform.position = new Vector3 (Pos_X, Pos_Y, Pos_Z);
+            Debug.Log("перед");
     }
 
     void ChangePosition() {
@@ -90,4 +91,10 @@ public Text countdownText, Score, Record;
         print("new X position: " + random_width_pos + ", new Y position: " + random_height_pos);
         sphere.transform.position = new Vector3(random_width_pos, random_height_pos, 0);
     }
+
+     void OnMouseDown ()
+        {
+                if (ButDeadF == true)
+                        AudioSource.PlayClipAtPoint (DeadF, transform.position);
+        }
 }
